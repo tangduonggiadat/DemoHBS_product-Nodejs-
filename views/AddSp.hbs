@@ -1,0 +1,65 @@
+ <div class="container">
+    <div class="row">
+      <h2 class="col-sm-6">Product Add</h2>
+   <div class="col-sm-6 text-right">
+     <button type="button" class="btn btn-dark" 
+     onclick="GoBack()"> Go Back</button>
+   </div>
+    </div>
+    <form action="/SanPham/Add-Pro" class="was-validated" method="POST" enctype="multipart/form-data">
+      <div class="form-group">
+        <label for="name">Name:</label>
+        <input type="text" class="form-control" id="name"name="name" required>
+        <div class="valid-feedback">Valid.</div>
+        <div class="invalid-feedback">Please fill out this field.</div>
+      </div>
+      <div class="form-group">
+        <label for="price">Price:</label>
+        <input type="text" class="form-control" id="price" name="price" required>
+        <div class="valid-feedback">Valid.</div>
+        <div class="invalid-feedback">Please fill out this field.</div>
+      </div>
+      <div class="form-group">
+        <label for="date">Date:</label>
+        <input type="date" class="form-control" id="date"  name="date" required>
+        <div class="valid-feedback">Valid.</div>
+        <div class="invalid-feedback">Please fill out this field.</div>
+      </div>
+        <div class="form-group">
+          <label for="idLoaiSP">Category:</label>
+          <select class="form-control" id="idLoaiSP" name="idLoaiSP">
+               {{#each LoaiSP}}
+                <option value="{{this._id}}"> {{this.name}}</option>
+               {{/each}}
+          </select>          
+      </div>
+      <div>
+        <label for="img">Image:</label><br>
+        <input type="file" class="form" id="img" name="img">
+      
+       <img class="d-none" width="100" height="100" id="ShowIMG">
+        </div>
+        <br>
+        <hr>
+      
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
+  <script>
+      function GoBack(){
+          window.location.href='/'
+      }
+      function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader()
+            reader.onload = function (e) {
+                $('#ShowIMG').attr('src', e.target.result)
+                $( "#ShowIMG" ).removeClass( "d-none" ).addClass( "" );
+            }
+            reader.readAsDataURL(input.files[0])
+        }
+    }
+    $("#img").change(function () {
+        readURL(this)
+    })
+  </script>

@@ -1,0 +1,81 @@
+<div class="container">
+    <div class="row">
+        <h2 class="col-sm-6">Product Table</h2>
+        <div class="col-sm-6 text-right">
+            <button type="button" class="btn btn-primary" onclick="GotoAddSp()">
+                Add Product
+            </button>
+            <button type="button" class="btn btn-primary" onclick="GotoLogOut()">
+                Log Out
+            </button>
+        </div>
+        <table class="table">
+            <thead>
+                <tr class="table-warning">
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Date</th>
+                    <th>Category</th>
+                     <th>Image</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                 {{#each ListSP}}
+                 <tr>
+                        <td>
+                            {{this._id}}
+                        </td>
+                        <td>
+                            {{this.name}}
+                        </td>
+                        <td>
+                            {{this.price}}
+                        </td>
+                        <td>
+                             {{formartDate this.date}}
+                        </td>
+                        <td>
+                            {{this.idLoaiSP.name}}
+                        </td>
+                         <td>
+                            <img width="50" height="50" src="http://localhost:2002/images/{{this.img}}" alt="img">
+                        </td>
+                        <td class="text-right">
+                            <button type="button" onclick="GotoEditSp('{{this._id}}')"
+                                class="btn btn-success">Edit</button>
+                            <button type="button" onclick="deleteProduct('{{this._id}}')"
+                                class="btn btn-danger">Delete</button>
+                        </td>
+                         
+                    </tr>
+                 {{/each}}
+            </tbody>
+        </table>
+    </div>
+
+</div>
+<script>
+    function GotoAddSp() {
+        window.location.href = 'SanPham/Add-Pro'
+    }
+
+    function GotoEditSp(id) {
+        window.location.href = 'SanPham/EditSP/' + id
+    }
+    function deleteProduct(id) {
+        $.ajax({
+            type: "DELETE",
+            url: '/SanPham/delete/' + id,
+            success: function (data) {
+                if (data.res == true) {
+                    window.location.href = '/SanPham'
+                }
+            }
+        });
+    }
+    function GotoLogOut() {
+        window.location.href = 'Logout'
+    }
+</script>
